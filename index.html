@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IVYDOCS</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="syntax_highlight.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <!-- KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <!-- Pickr CSS (Color Picker) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/nano.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- CodeMirror 5 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/eclipse.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/monokai.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/solarized.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/neo.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/github.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/nord.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/markdown/markdown.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/clike/clike.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/stex/stex.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/shell/shell.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/sql/sql.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/selection/active-line.min.js"></script>
+
+    <!-- External Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/marked@4.3.0/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/mhchem.min.js"></script>
+    <!-- PDF.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';</script>
+    <!-- Mammoth.js (Word) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+    <!-- Turndown (HTML to Markdown) -->
+    <script src="https://unpkg.com/turndown/dist/turndown.js"></script>
+    <!-- Prettier (Formatting) -->
+    <script src="https://unpkg.com/prettier@2.8.8/standalone.js"></script>
+    <script src="https://unpkg.com/prettier@2.8.8/parser-markdown.js"></script>
+    <!-- Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Desmos API - Demo Key -->
+    <script src="https://www.desmos.com/api/v1.9/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+    <!-- Pickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="header-title-container">
+                <h1>IVYDOCS MARKDOWN EDITOR</h1>
+            </div>
+            <div class="toolbar">
+                <!-- Standard Formatting -->
+                <div class="toolbar-group" id="tour-formatting">
+                    <button onclick="formatText('bold')" title="Bold"><span
+                            class="material-icons">format_bold</span></button>
+                    <button onclick="formatText('italic')" title="Italic"><span
+                            class="material-icons">format_italic</span></button>
+                    <button onclick="formatText('strikethrough')" title="Strikethrough"><span
+                            class="material-icons">strikethrough_s</span></button>
+                    <select id="heading-select" class="toolbar-select" onchange="changeHeading(this.value)"
+                        title="Headings">
+                        <option value="p">Normal Text</option>
+                        <option value="h1" class="option-h1">Title</option>
+                        <option value="h2" class="option-h2">Subtitle</option>
+                        <option value="h3" class="option-h3">Heading</option>
+                    </select>
+                </div>
+
+                <div class="toolbar-group" id="tour-lists">
+                    <button onclick="formatText('ul')" title="Bullet List"><span
+                            class="material-icons">format_list_bulleted</span></button>
+                    <button onclick="formatText('ol')" title="Numbered List"><span
+                            class="material-icons">format_list_numbered</span></button>
+                    <button onclick="formatText('task')" title="Task List"><span
+                            class="material-icons">check_box</span></button>
+                </div>
+
+                <div class="toolbar-group" id="tour-inserts">
+                    <button onclick="formatText('link')" title="Link"><span class="material-icons">link</span></button>
+                    <button onclick="formatText('image')" title="Image"><span
+                            class="material-icons">image</span></button>
+                    <button onclick="formatText('code')" title="Code Block"><span
+                            class="material-icons">code</span></button>
+                    <button onclick="formatText('quote')" title="Quote"><span
+                            class="material-icons">format_quote</span></button>
+                    <button onclick="openTableModal()" title="Table"><span
+                            class="material-icons">table_chart</span></button>
+                </div>
+
+                <div class="separator"></div>
+
+                <!-- Advanced Inserts -->
+                <div class="toolbar-group" id="tour-visuals">
+                    <button onclick="openTemplateModal('charts')" title="Charts"><span
+                            class="material-icons">bar_chart</span> <span class="btn-text">Charts</span></button>
+                    <button onclick="openTemplateModal('mermaid')" title="Diagrams"><span
+                            class="material-icons">account_tree</span> <span class="btn-text">Mermaid</span></button>
+                </div>
+
+                <div class="toolbar-group" id="tour-science">
+                    <div class="dropdown">
+                        <button class="dropdown-btn" title="STEM Tools"><span class="material-icons">science</span>
+                            <span class="btn-text">STEM</span></button>
+                        <div class="dropdown-content">
+                            <button class="dropdown-item" onclick="openMathBuilder('common')"><span
+                                    class="material-icons">functions</span> Math</button>
+                            <button class="dropdown-item" onclick="openMathBuilder('physics')"><span
+                                    class="material-icons">bolt</span> Physics</button>
+                            <button class="dropdown-item" onclick="openMathBuilder('chemistry')"><span
+                                    class="material-icons">science</span> Chemistry</button>
+                            <button class="dropdown-item" onclick="openMathBuilder('economics')"><span
+                                    class="material-icons">attach_money</span> Economics</button>
+                            <button class="dropdown-item" onclick="openMathBuilder('periodic')"><span
+                                    class="material-icons">grid_on</span> Periodic Table</button>
+                            <button class="dropdown-item" onclick="openTemplateModal('formulas')"><span
+                                    class="material-icons">menu_book</span> Formulas</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="toolbar-group" id="tour-misc">
+                    <button onclick="insertMarkscheme()" title="Markscheme"><span
+                            class="material-icons">subdirectory_arrow_right</span> <span
+                            class="btn-text">Markscheme</span></button>
+                </div>
+
+                <div class="toolbar-group">
+                    <div class="dropdown" id="tour-view">
+                        <button class="dropdown-btn" title="View Mode"><span
+                                class="material-icons">view_quilt</span></button>
+                        <div class="dropdown-content">
+                            <button class="dropdown-item" onclick="setViewMode('split')">Split View</button>
+                            <button class="dropdown-item" onclick="setViewMode('code')">Code Only</button>
+                            <button class="dropdown-item" onclick="setViewMode('preview')">Preview Only</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="separator"></div>
+
+                <div class="toolbar-group">
+                    <div class="dropdown" id="tour-download">
+                        <button class="dropdown-btn" title="Download"><span
+                                class="material-icons">download</span></button>
+                        <div class="dropdown-content">
+                            <button class="dropdown-item" onclick="downloadMarkdown()">Download (.md)</button>
+                            <button class="dropdown-item" onclick="downloadPDF()">Download (.pdf)</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="separator"></div>
+
+                <div class="toolbar-group" id="tour-settings">
+                    <button onclick="window.open('https://github.com/NagusameCS/IVYDOCS', '_blank')"
+                        title="GitHub Repo"><span class="material-icons">terminal</span></button>
+                    <button onclick="openSettingsModal()" title="Settings"><span
+                            class="material-icons">settings</span></button>
+                </div>
+            </div>
+        </header>
+        <main>
+            <div class="editor-pane">
+                <div class="editor-tabs-bar" id="editor-tabs-bar">
+                    <!-- Tabs injected by JS -->
+                    <button class="new-tab-btn" onclick="createNewTab()" title="New Tab">+</button>
+                </div>
+                <textarea id="editor" placeholder="Type your markdown here..."></textarea>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="preview-container">
+                <div class="preview-page" id="preview"></div>
+            </div>
+        </main>
+
+        <!-- Table Modal -->
+        <div id="table-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal" onclick="closeTableModal()">&times;</span>
+                <h3>Insert Table</h3>
+                <div class="table-grid-selector" id="table-grid-selector">
+                    <!-- Grid cells generated by JS -->
+                </div>
+                <p id="table-grid-label" style="text-align: center; margin-top: 10px;">1 x 1</p>
+            </div>
+        </div>
+
+        <!-- Math/Chemistry Builder Modal -->
+        <div id="math-modal" class="modal">
+            <div class="modal-content large-modal">
+                <span class="close-modal" onclick="closeMathModal()">&times;</span>
+                <h3 id="math-modal-title">Equation Builder</h3>
+
+                <div class="math-builder-container">
+                    <div class="math-controls">
+                        <!-- Removed buttons as requested -->
+                    </div>
+                    <div class="math-preview-area" id="math-preview"></div>
+                    <textarea id="math-input" class="math-input" placeholder="Type LaTeX here..."></textarea>
+
+                    <div id="math-tabs" class="math-symbols-tabs">
+                        <button class="tab-btn active" onclick="switchMathTab('common')">Common</button>
+                        <button class="tab-btn" onclick="switchMathTab('calculus')">Calculus</button>
+                        <button class="tab-btn" onclick="switchMathTab('greek')">Greek</button>
+                        <button class="tab-btn" onclick="switchMathTab('operators')">Operators</button>
+                        <button class="tab-btn" onclick="switchMathTab('relations')">Relations</button>
+                        <button class="tab-btn" onclick="switchMathTab('matrices')">Matrices</button>
+                        <button class="tab-btn" onclick="switchMathTab('physics')">Physics</button>
+                        <button class="tab-btn" onclick="switchMathTab('economics')">Economics</button>
+                        <button class="tab-btn" onclick="switchMathTab('chemistry')">Chemistry</button>
+                        <button class="tab-btn" onclick="switchMathTab('periodic')">Periodic Table</button>
+                    </div>
+
+                    <div id="math-symbols-grid" class="math-symbols-grid">
+                        <!-- Symbols injected by JS -->
+                    </div>
+
+                    <div id="periodic-table-container">
+                        <div class="periodic-table-grid" id="periodic-table-grid">
+                            <!-- Elements injected by JS -->
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="primary-btn" onclick="insertMathFromBuilder()">Insert Equation</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Template Modal -->
+        <div id="template-modal" class="modal">
+            <div class="modal-content large-modal">
+                <span class="close-modal" onclick="closeTemplateModal()">&times;</span>
+                <h3 id="template-modal-title">Insert Template</h3>
+                <div id="template-controls" style="display:none; margin-bottom: 15px;">
+                    <input type="text" id="template-search" placeholder="Search formulas..." class="math-input"
+                        style="margin-bottom: 10px;">
+                    <div id="template-filters" class="math-symbols-tabs">
+                        <!-- Filter buttons will be injected here -->
+                    </div>
+                </div>
+                <div id="template-grid" class="template-grid">
+                    <!-- Templates will be injected here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Context Menu -->
+        <div id="context-menu" class="context-menu">
+            <div class="context-menu-item" onclick="formatText('bold')"><span class="material-icons">format_bold</span>
+                Bold</div>
+            <div class="context-menu-item" onclick="formatText('italic')"><span
+                    class="material-icons">format_italic</span> Italic</div>
+            <div class="context-menu-item" onclick="formatText('strikethrough')"><span
+                    class="material-icons">strikethrough_s</span> Strikethrough</div>
+            <div class="context-menu-separator"></div>
+
+            <div class="context-menu-item" onclick="formatDocument()"><span class="material-icons">auto_fix_high</span>
+                Format Document</div>
+            <div class="context-menu-item" onclick="selectAllCode()"><span class="material-icons">select_all</span>
+                Select All</div>
+            <div class="context-menu-separator"></div>
+
+            <div class="context-menu-item has-submenu">
+                <span class="material-icons">title</span> Headings
+                <div class="submenu">
+                    <div class="context-menu-item" onclick="formatText('h1')">Heading 1</div>
+                    <div class="context-menu-item" onclick="formatText('h2')">Heading 2</div>
+                    <div class="context-menu-item" onclick="formatText('h3')">Heading 3</div>
+                </div>
+            </div>
+
+            <div class="context-menu-item has-submenu">
+                <span class="material-icons">format_list_bulleted</span> Lists
+                <div class="submenu">
+                    <div class="context-menu-item" onclick="formatText('ul')">Bullet List</div>
+                    <div class="context-menu-item" onclick="formatText('ol')">Numbered List</div>
+                    <div class="context-menu-item" onclick="formatText('task')">Task List</div>
+                </div>
+            </div>
+
+            <div class="context-menu-separator"></div>
+
+            <div class="context-menu-item" onclick="openTableModal()"><span class="material-icons">table_chart</span>
+                Insert Table</div>
+            <div class="context-menu-item" onclick="formatText('code')"><span class="material-icons">code</span> Code
+                Block</div>
+            <div class="context-menu-item" onclick="formatText('quote')"><span
+                    class="material-icons">format_quote</span> Quote</div>
+
+            <div class="context-menu-separator"></div>
+
+            <div class="context-menu-item has-submenu">
+                <span class="material-icons">bar_chart</span> Insert Chart
+                <div class="submenu">
+                    <div class="context-menu-item" onclick="insertTemplate('barChart')">Bar Chart</div>
+                    <div class="context-menu-item" onclick="insertTemplate('lineChart')">Line Chart</div>
+                    <div class="context-menu-item" onclick="insertTemplate('pieChart')">Pie Chart</div>
+                    <div class="context-menu-item" onclick="insertTemplate('doughnutChart')">Doughnut</div>
+                </div>
+            </div>
+            <div class="context-menu-item has-submenu">
+                <span class="material-icons">account_tree</span> Insert Diagram
+                <div class="submenu">
+                    <div class="context-menu-item" onclick="insertTemplate('flowchart')">Flowchart</div>
+                    <div class="context-menu-item" onclick="insertTemplate('sequence')">Sequence</div>
+                    <div class="context-menu-item" onclick="insertTemplate('classDiagram')">Class</div>
+                    <div class="context-menu-item" onclick="insertTemplate('stateDiagram')">State</div>
+                    <div class="context-menu-item" onclick="insertTemplate('gantt')">Gantt</div>
+                </div>
+            </div>
+            <div class="context-menu-item has-submenu">
+                <span class="material-icons">functions</span> Insert Math
+                <div class="submenu">
+                    <div class="context-menu-item" onclick="insertTemplate('inlineMath')">Inline Math</div>
+                    <div class="context-menu-item" onclick="insertTemplate('displayMath')">Display Math</div>
+                    <div class="context-menu-item" onclick="insertTemplate('desmos')">Desmos</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tour Tooltip -->
+        <div id="tour-tooltip" class="tour-tooltip">
+            <div class="tour-arrow"></div>
+            <div class="tour-content">
+                <h3 id="tour-title">Title</h3>
+                <p id="tour-desc">Description</p>
+                <div class="tour-footer">
+                    <span id="tour-progress">1/5</span>
+                    <div class="tour-buttons">
+                        <button class="primary-btn small" onclick="nextTutorialStep()">Next</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Modal -->
+        <div id="settings-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal" onclick="closeSettingsModal()">&times;</span>
+                <h3>Settings</h3>
+                <div class="settings-container">
+                    <div class="setting-item">
+                        <label for="setting-theme">Theme</label>
+                        <select id="setting-theme" class="toolbar-select"
+                            style="width: 100%; border: 1px solid var(--border-color);">
+                            <option value="dark">Dark (Dracula)</option>
+                            <option value="light">Light (Eclipse)</option>
+                            <option value="monokai">Monokai</option>
+                            <option value="solarized-dark">Solarized Dark</option>
+                            <option value="solarized-light">Solarized Light</option>
+                            <option value="high-contrast">High Contrast (Neo)</option>
+                            <option value="github-light">GitHub Light</option>
+                            <option value="github-light-hc">GitHub Light High Contrast</option>
+                            <option value="github-dark">GitHub Dark</option>
+                            <option value="github-dark-dimmed">GitHub Dark Dimmed</option>
+                            <option value="github-dark-hc">GitHub Dark High Contrast</option>
+                        </select>
+                    </div>
+                    <div class="setting-item" style="margin-top: 15px;">
+                        <label>
+                            <input type="checkbox" id="setting-autosave" checked> Auto-save
+                        </label>
+                    </div>
+                    <div class="setting-item" style="margin-top: 15px;">
+                        <label>
+                            <input type="checkbox" id="setting-tutorials" checked> Enable Tutorials
+                        </label>
+                    </div>
+                    <div class="setting-item" style="margin-top: 15px;">
+                        <button class="secondary-btn" onclick="localStorage.clear(); location.reload();">Reset All
+                            Data</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Drag & Drop Overlay -->
+        <div id="drag-overlay" class="drag-overlay">
+            <div class="drag-content">
+                <span class="material-icons drag-icon">cloud_upload</span>
+                <h3 id="drag-title">Drop to Import</h3>
+                <p id="drag-desc">Accepted files: .md, .txt, .pdf, .docx</p>
+                <div class="drag-loader" id="drag-loader"></div>
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>

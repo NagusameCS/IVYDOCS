@@ -1,0 +1,24 @@
+
+/* Enhanced CodeMirror Syntax Highlighting */
+.cm-s-dracula .cm-header { color: #ff79c6 !important; font-weight: bold; }
+.cm-s-dracula .cm-variable-2 { color: #50fa7b !important; } /* Lists */
+.cm-s-dracula .cm-link { color: #8be9fd !important; text-decoration: underline; }
+.cm-s-dracula .cm-string { color: #f1fa8c !important; }
+.cm-s-dracula .cm-comment { color: #6272a4 !important; }
+.cm-s-dracula .cm-quote { color: #bd93f9 !important; font-style: italic; }
+.cm-s-dracula .cm-strong { color: #ffb86c !important; font-weight: bold; }
+.cm-s-dracula .cm-em { color: #ffb86c !important; font-style: italic; }
+.cm-s-dracula .cm-keyword { color: #ff79c6 !important; }
+.cm-s-dracula .cm-atom { color: #bd93f9 !important; }
+.cm-s-dracula .cm-number { color: #bd93f9 !important; }
+.cm-s-dracula .cm-def { color: #50fa7b !important; }
+.cm-s-dracula .cm-tag { color: #ff79c6 !important; }
+.cm-s-dracula .cm-attribute { color: #50fa7b !important; }
+.cm-s-dracula .cm-meta { color: #f8f8f2 !important; } /* Markdown block fences */
+.cm-s-dracula .cm-variable { color: #f8f8f2 !important; }
+.cm-s-dracula .cm-property { color: #66d9ef !important; }
+.cm-s-dracula .cm-operator { color: #ff79c6 !important; }
+.cm-s-dracula .cm-builtin { color: #8be9fd !important; }
+.cm-s-dracula .cm-qualifier { color: #50fa7b !important; }
+.cm-s-dracula .cm-type { color: #8be9fd !important; }
+
