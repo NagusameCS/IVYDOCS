@@ -605,6 +605,8 @@ main {
     padding: 20px;
     display: flex;
     justify-content: center;
+    align-items: flex-start;
+    /* Align to top so it grows downwards */
 }
 
 .preview-page {
@@ -616,6 +618,8 @@ main {
     /* A4-ish width */
     min-height: 100%;
     /* Fill height at least */
+    height: fit-content;
+    /* Allow it to grow */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     margin-bottom: 20px;
 }
@@ -1284,12 +1288,13 @@ details[open] summary {
         visibility: hidden;
     }
 
+    .preview-container,
     .preview-page,
     .preview-page * {
         visibility: visible;
     }
 
-    .preview-page {
+    .preview-container {
         position: absolute;
         left: 0;
         top: 0;
@@ -1297,8 +1302,22 @@ details[open] summary {
         height: auto;
         overflow: visible;
         background-color: white;
+        padding: 0;
+        margin: 0;
+        display: block;
+        /* Reset flex */
+    }
+
+    .preview-page {
+        position: relative;
+        /* Changed from absolute */
+        width: 100%;
+        height: auto;
+        overflow: visible;
+        background-color: white;
         color: black;
-        padding: 20px;
+        padding: 0;
+        /* Let browser handle margins or set standard */
         box-shadow: none;
         /* Remove shadow for print */
         margin: 0;
@@ -1306,10 +1325,20 @@ details[open] summary {
     }
 
     /* Hide scrollbars and other UI elements */
+    .container>header,
+    /* Be specific to avoid hiding preview content if nested */
+    .editor-pane,
+    .resizer,
+    .editor-tabs-bar {
+        display: none !important;
+    }
+
+    /* Ensure main container doesn't clip */
     .container,
-    header,
-    .editor-pane {
-        display: none;
+    main {
+        overflow: visible !important;
+        height: auto !important;
+        display: block !important;
     }
 }
 

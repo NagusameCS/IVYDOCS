@@ -2010,8 +2010,17 @@ function setViewMode(mode) {
 
 // Download PDF
 function downloadPDF() {
-    window.print();
-    triggerConfetti();
+    // Temporarily force preview mode for clean printing
+    const previousMode = viewModes[currentViewModeIndex];
+    setViewMode('preview');
+
+    // Wait for layout update then print
+    setTimeout(() => {
+        window.print();
+        // Restore view mode
+        setViewMode(previousMode);
+        triggerConfetti();
+    }, 500);
 }
 
 // Trigger Confetti
