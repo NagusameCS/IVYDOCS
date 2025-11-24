@@ -1267,22 +1267,6 @@ details[open] summary {
     opacity: 1;
 }
 
-.new-tab-btn {
-    background: none;
-    border: none;
-    color: var(--text-color);
-    font-size: 18px;
-    padding: 0 10px;
-    cursor: pointer;
-    height: 100%;
-    display: flex;
-    align-items: center;
-}
-
-.new-tab-btn:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
 @media print {
     body * {
         visibility: hidden;
@@ -1532,4 +1516,105 @@ body.theme-github-light-hc .toolbar-group {
     h1 {
         font-size: 1rem;
     }
+}
+
+/* Desmos Modal Styles */
+.desmos-modal-content {
+    width: 90%;
+    height: 90%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    /* Reset padding for header/footer layout */
+    overflow: hidden;
+    /* Prevent scroll on main container */
+}
+
+.modal-header {
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.desmos-editor-container {
+    flex: 1;
+    width: 100%;
+    border-bottom: 1px solid var(--border-color);
+    background-color: #fff;
+    /* Desmos needs white bg usually */
+}
+
+.desmos-modal-footer {
+    padding: 15px 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+.desmos-options {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.desmos-option-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.desmos-option-group label {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    opacity: 0.9;
+}
+
+.desmos-option-group select {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 6px 10px;
+    border-radius: 4px;
+    outline: none;
+}
+
+.desmos-option-group select:focus {
+    border-color: var(--accent-color);
+}
+
+.checkbox-group {
+    cursor: pointer;
+}
+
+.checkbox-group input[type="checkbox"] {
+    cursor: pointer;
+}
+
+.checkbox-group label {
+    cursor: pointer;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* Ensure close button is positioned correctly in header */
+.modal-header .close-modal {
+    position: static;
+    /* Reset absolute positioning if inherited */
+    font-size: 24px;
+    line-height: 1;
+    padding: 0;
+    margin: 0;
 }

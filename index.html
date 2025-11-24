@@ -116,6 +116,8 @@
                             class="material-icons">bar_chart</span> <span class="btn-text">Charts</span></button>
                     <button onclick="openTemplateModal('mermaid')" title="Diagrams"><span
                             class="material-icons">account_tree</span> <span class="btn-text">Mermaid</span></button>
+                    <button onclick="openDesmosModal()" title="Desmos Graph"><span
+                            class="material-icons">functions</span> <span class="btn-text">Desmos</span></button>
                 </div>
 
                 <div class="toolbar-group" id="tour-science">
@@ -267,7 +269,27 @@
             </div>
         </div>
 
-        <!-- Context Menu -->
+        <!-- Desmos Modal -->
+        <div id="desmos-modal" class="modal">
+            <div class="modal-content desmos-modal-content">
+                <div class="modal-header">
+                    <h3>Desmos Graph Editor</h3>
+                    <div class="desmos-options">
+                        <div class="desmos-option-group">
+                            <label for="desmos-preset">Display Mode</label>
+                            <select id="desmos-preset" class="toolbar-select">
+                                <option value="default">Default (Graph Only)</option>
+                                <option value="split">Split (Graph + Equations)</option>
+                                <option value="static">Static (Locked)</option>
+                            </select>
+                        </div>
+                        <button class="primary-btn" onclick="insertDesmosGraph()">Insert Graph</button>
+                    </div>
+                    <span class="close-modal" onclick="closeDesmosModal()">&times;</span>
+                </div>
+                <div id="desmos-editor-container" class="desmos-editor-container"></div>
+            </div>
+        </div> <!-- Context Menu -->
         <div id="context-menu" class="context-menu">
             <div class="context-menu-item" onclick="formatText('bold')"><span class="material-icons">format_bold</span>
                 Bold</div>
